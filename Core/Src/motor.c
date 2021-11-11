@@ -1,5 +1,7 @@
 #include <motor.h>
 
+#include <main.h>
+
 void moveMotors() {
 	// Motor 1 Pins
 	// IN1 = PB5
