@@ -17,12 +17,12 @@ void testMotors() {
 	moveMotors();
 }
 
-bool once = false;
-void testServo() {
-	if (!once) {
-		servoInit();
-		once = true;
-	}
+//bool once = false;
+void testServo(TIM_HandleTypeDef *htim2) {
+//	if (!once) {
+//		servoInit();
+//		once = true;
+//	}
 
-	moveServo();
+	moveServo(htim2);
 }

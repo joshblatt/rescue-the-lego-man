@@ -1,2 +1,3 @@
-servo.c:8:6:servoInit	8	static
-servo.c:12:6:moveServo	8	static
+servo.c:8:6:servoInit	4	static
+servo.c:12:6:changeDutyCycle	48	static
+servo.c:24:6:moveServo	16	static
