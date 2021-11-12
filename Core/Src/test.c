@@ -14,15 +14,17 @@ void testColourSensor(ADC_HandleTypeDef* hadc1) {
 }
 
 void testMotors() {
-	moveMotors();
+	//moveMotors();
+	moveForwards();
+	stopMotors();
+	moveBackwards();
+	stopMotors();
+	turnRight();
+	stopMotors();
+	turnLeft();
+	stopMotors();
 }
 
-//bool once = false;
 void testServo(TIM_HandleTypeDef *htim2) {
-//	if (!once) {
-//		servoInit();
-//		once = true;
-//	}
-
 	moveServo(htim2);
 }

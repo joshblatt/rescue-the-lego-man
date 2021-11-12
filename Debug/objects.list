@@ -28,7 +28,3 @@
 "./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.o"
 "./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.o"
 "./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_adc.o"
-"./EUCAL/SERVO/SERVO.o"
-"./EUCAL/SERVO/SERVO_cfg.o"
-"./util/DWT_Delay.o"
-"./util/Timer_Delay.o"
