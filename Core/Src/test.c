@@ -7,10 +7,16 @@
 #include <main.h>
 #include <servo.h>
 
-void testColourSensor(ADC_HandleTypeDef* hadc1) {
-	static float colourVal;
-	setColour(BLUE);
-	colourVal = getReading(hadc1);
+void testColourSensor(UART_HandleTypeDef *huart6, TIM_HandleTypeDef *htim2) {
+	Colour colour = getLeftColour(huart6);
+	if (colour == RED) {
+		openServo(htim2);
+	} else if (colour == GREEN) {
+		closeServo(htim2);
+	} else if (colour == BLUE) {
+		openServo(htim2);
+		closeServo(htim2);
+	}
 }
 
 void testMotors() {

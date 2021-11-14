@@ -3,7 +3,7 @@
 
 #include <main.h>
 
-void testColourSensor();
+void testColourSensor(UART_HandleTypeDef *huart6, TIM_HandleTypeDef *htim2);
 void testMotors();
 void testServo(TIM_HandleTypeDef *htim2);
 
