@@ -1,3 +1,3 @@
-test.c:10:6:testColourSensor	24	static
-test.c:22:6:testMotors	8	static
-test.c:34:6:testServo	16	static
+test.c:10:6:testColourSensor	32	static
+test.c:23:6:testMotors	8	static
+test.c:35:6:testServo	16	static

@@ -7,13 +7,14 @@
 #include <main.h>
 #include <servo.h>
 
-void testColourSensor(UART_HandleTypeDef *huart6, TIM_HandleTypeDef *htim2) {
-	Colour colour = getLeftColour(huart6);
-	if (colour == RED) {
+void testColourSensor(UART_HandleTypeDef *huart1, UART_HandleTypeDef *huart6, TIM_HandleTypeDef *htim2) {
+	Colour colourRight = getRightColour(huart1);
+	Colour colourLeft = getLeftColour(huart6);
+	if (colourLeft == RED) {
 		openServo(htim2);
-	} else if (colour == GREEN) {
+	} else if (colourLeft == GREEN) {
 		closeServo(htim2);
-	} else if (colour == BLUE) {
+	} else if (colourLeft == BLUE) {
 		openServo(htim2);
 		closeServo(htim2);
 	}
