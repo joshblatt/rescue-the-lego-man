@@ -127,8 +127,9 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  testMotors();
-	  testServo(&htim2);
+	  //testMotors();
+	  //testServo(&htim2);
+	  testImu(&hi2c2);
 	  //testColourSensor(&huart1, &huart6, &htim2);
 	  //testMotors();
   }

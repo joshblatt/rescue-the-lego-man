@@ -1,0 +1,3 @@
+imu.c:37:6:readGyro	32	static
+imu.c:52:6:readAccel	16	static
+imu.c:56:6:readMag	16	static

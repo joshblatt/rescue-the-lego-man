@@ -3,6 +3,7 @@
 #include <stdbool.h>
 
 #include <colour_sensor.h>
+#include <imu.h>
 #include <motor.h>
 #include <main.h>
 #include <servo.h>
@@ -34,4 +35,8 @@ void testMotors() {
 
 void testServo(TIM_HandleTypeDef *htim2) {
 	moveServo(htim2);
+}
+
+void testImu(I2C_HandleTypeDef *hi2c2) {
+	readGyro(hi2c2);
 }
