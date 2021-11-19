@@ -10,17 +10,15 @@
 
 volatile Colour colourRight;
 volatile Colour colourLeft;
+RGB rgbRight;
+volatile uint8_t redRight;
+volatile uint8_t greenRight;
+volatile uint8_t blueRight;
 void testColourSensor() {
-	colourRight = getRightColour();
-	colourLeft = getLeftColour();
-//	if (colourLeft == RED) {
-//		openServo(htim2);
-//	} else if (colourLeft == GREEN) {
-//		closeServo(htim2);
-//	} else if (colourLeft == BLUE) {
-//		openServo(htim2);
-//		closeServo(htim2);
-//	}
+	getRightRGB(&rgbRight);
+	redRight = rgbRight.red;
+	greenRight = rgbRight.green;
+	blueRight = rgbRight.blue;
 }
 
 void testMotors() {

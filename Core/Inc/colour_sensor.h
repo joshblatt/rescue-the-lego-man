@@ -11,8 +11,26 @@ typedef enum Colour {
 	NO_COLOUR
 } Colour;
 
-void initColourSensors(UART_HandleTypeDef *huart1, UART_HandleTypeDef *huart6);
-uint8_t getRightColourRaw();
+typedef struct {
+	float red;
+	float green;
+	float blue;
+	float clear;
+} Frequency;
+
+typedef struct {
+	uint8_t red;
+	uint8_t green;
+	uint8_t blue;
+} RGB;
+
+void initColourSensors(TIM_HandleTypeDef* htim4, UART_HandleTypeDef *huart6);
+
+float getRightColourFrequency();
+void getRightColourIntensities(Frequency *freq);
+void getRightRGB(RGB *rgb);
+Colour getRightColour();
+
 uint8_t getLeftColourRaw();
 Colour getRightColour();
 Colour getLeftColour();
