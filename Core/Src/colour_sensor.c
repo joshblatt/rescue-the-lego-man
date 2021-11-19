@@ -1,6 +1,10 @@
 #include <colour_sensor.h>
 
+#include <stdio.h>
+#include <string.h>
+
 #include <main.h>
+
 
 // Right Colour Sensor
 // S2 = PC0
@@ -12,87 +16,102 @@
 // S3 = PB0
 // OUT = PA12 (works) huart6
 
-uint8_t getRightColourRaw(UART_HandleTypeDef *huart1) {
+UART_HandleTypeDef *uart1;
+UART_HandleTypeDef *uart6;
+
+void initColourSensors(UART_HandleTypeDef *huart1, UART_HandleTypeDef *huart6) {
+	uart1 = huart1;
+	uart6 = huart6;
+}
+
+uint8_t getRightColourRaw() {
 	// TODO change to different uart to read
-	uint8_t rxData;
-	HAL_UART_Receive(huart1, &rxData, sizeof(rxData), HAL_MAX_DELAY);
-
-	HAL_Delay(200);
+	uint8_t rxData = 0;
+	HAL_UART_Receive(uart1, &rxData, sizeof(rxData), HAL_MAX_DELAY);
+	HAL_Delay(10);
 	return rxData;
 }
 
-uint8_t getLeftColourRaw(UART_HandleTypeDef *huart6) {
-	uint8_t rxData;
-	HAL_UART_Receive(huart6, &rxData, sizeof(rxData), HAL_MAX_DELAY);
-	HAL_Delay(200);
+uint8_t getLeftColourRaw() {
+	uint8_t rxData = 0;
+	HAL_UART_Receive(uart6, &rxData, sizeof(rxData), HAL_MAX_DELAY);
+	HAL_Delay(10);
 	return rxData;
 }
 
-Colour getRightColour(UART_HandleTypeDef *huart1) {
+volatile uint8_t redRight;
+volatile uint8_t greenRight;
+volatile uint8_t blueRight;
+Colour getRightColour() {
 	setRightColour(RED);
-	uint8_t red = getRightColourRaw(huart1);
+	redRight = getRightColourRaw();
 	setRightColour(GREEN);
-	uint8_t green = getRightColourRaw(huart1);
+	greenRight = getRightColourRaw();
 	setRightColour(BLUE);
-	uint8_t blue = getRightColourRaw(huart1);
+	blueRight = getRightColourRaw();
 
-	HAL_Delay(200);
-
-	if (red >= green && red >= blue) {
+	if (redRight >= 25 && redRight <= 85) {
 		return RED;
-	} else if (green >= red && green >= blue) {
+	} else if (greenRight >= 25 && redRight <= 85) {
 		return GREEN;
+	} else if (blueRight >= 25 && blueRight <= 85) {
+		return BLUE;
 	}
-	return BLUE;
+
+	return CLEAR;
 }
-Colour getLeftColour(UART_HandleTypeDef *huart6) {
+
+volatile uint8_t redLeft;
+volatile uint8_t greenLeft;
+volatile uint8_t blueLeft;
+Colour getLeftColour() {
 	setLeftColour(RED);
-	uint8_t red = getLeftColourRaw(huart6);
+	redLeft = getLeftColourRaw();
 	setLeftColour(GREEN);
-	uint8_t green = getLeftColourRaw(huart6);
+	greenLeft = getLeftColourRaw();
 	setLeftColour(BLUE);
-	uint8_t blue = getLeftColourRaw(huart6);
+	blueLeft = getLeftColourRaw();
 
-	HAL_Delay(200);
-
-	if (red >= green && red >= blue) {
+	if (redLeft >= 100 && redLeft <= 255 && greenLeft >= 40 && greenLeft <= 110 && blueLeft >= 0 && blueLeft <= 200) {
 		return RED;
-	} else if (green >= red && green >= blue) {
+	} else if (greenLeft >= 25 && greenLeft <= 85) {
 		return GREEN;
+	} else if (blueLeft >= 25 && blueLeft <= 85) {
+		return BLUE;
 	}
-	return BLUE;
+	return CLEAR;
 }
 
 void setRightColour(Colour colour) {
 	if (colour == RED) {
-		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_1, GPIO_PIN_RESET);
 		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_1, GPIO_PIN_RESET);
 	} else if (colour == BLUE) {
-		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_1, GPIO_PIN_RESET);
-		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_SET);
-	} else if (colour == CLEAR) {
-		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_1, GPIO_PIN_SET);
 		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_RESET);
-	} else if (colour == GREEN) {
 		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_1, GPIO_PIN_SET);
+	} else if (colour == CLEAR) {
 		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_SET);
+		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_1, GPIO_PIN_RESET);
+	} else if (colour == GREEN) {
+		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_SET);
+		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_1, GPIO_PIN_SET);
 	}
-	HAL_Delay(200);
+	HAL_Delay(10);
 }
 
 void setLeftColour(Colour colour) {
 	if (colour == RED) {
-		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_RESET);
 		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_3, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_RESET);
 	} else if (colour == BLUE) {
-		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_RESET);
-		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_3, GPIO_PIN_SET);
-	} else if (colour == CLEAR) {
-		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_SET);
 		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_3, GPIO_PIN_RESET);
-	} else if (colour == GREEN) {
 		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_SET);
+	} else if (colour == CLEAR) {
 		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_3, GPIO_PIN_SET);
+		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_RESET);
+	} else if (colour == GREEN) {
+		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_3, GPIO_PIN_SET);
+		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_SET);
 	}
-	HAL_Delay(200);
+	HAL_Delay(10);
 }

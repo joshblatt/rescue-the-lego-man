@@ -2,11 +2,18 @@
 
 #include <main.h>
 
+TIM_HandleTypeDef *tim1;
+TIM_HandleTypeDef *tim3;
+TIM_HandleTypeDef *tim4;
+
 void initMotors(TIM_HandleTypeDef *htim1, TIM_HandleTypeDef *htim3, TIM_HandleTypeDef *htim4) {
 	  HAL_TIM_PWM_Start(htim1, TIM_CHANNEL_2);
 	  HAL_TIM_PWM_Start(htim3, TIM_CHANNEL_2);
 	  HAL_TIM_PWM_Start(htim4, TIM_CHANNEL_4);
 	  HAL_TIM_PWM_Start(htim3, TIM_CHANNEL_1);
+	  tim1 = htim1;
+	  tim3 = htim3;
+	  tim4 = htim4;
 	  htim1->Instance->CCR2 = 850;
 	  htim3->Instance->CCR2 = 850;
 	  htim4->Instance->CCR4 = 850;
@@ -180,36 +187,36 @@ void stopRightMotors() {
 
 void slowLeftMotors() {
 	// Motor 1
-	htim1->Instance->CCR2 = 250;
+	tim1->Instance->CCR2 = 250;
 
 	// Motor 2
-	htim3->Instance->CCR2 = 250;
+	tim3->Instance->CCR2 = 250;
 	HAL_Delay(1000);
 }
 
 void slowRightMotors() {
 	// Motor 3
-	htim4->Instance->CCR4 = 250;
+	tim4->Instance->CCR4 = 250;
 
 	// Motor 4
-	htim3->Instance->CCR1 = 250;
+	tim3->Instance->CCR1 = 250;
 	HAL_Delay(1000);
 }
 
 void speedLeftMotors() {
 	// Motor 1
-	htim1->Instance->CCR2 = 850;
+	tim1->Instance->CCR2 = 850;
 
 	// Motor 2
-	htim3->Instance->CCR2 = 850;
+	tim3->Instance->CCR2 = 850;
 	HAL_Delay(1000);
 }
 
 void speedRightMotors() {
 	// Motor 3
-	htim4->Instance->CCR4 = 850;
+	tim4->Instance->CCR4 = 850;
 
 	// Motor 4
-	htim3->Instance->CCR1 = 850;
+	tim3->Instance->CCR1 = 850;
 	HAL_Delay(1000);
 }

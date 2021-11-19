@@ -22,7 +22,10 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+
+#include <colour_sensor.h>
 #include <motor.h>
+#include <servo.h>
 #include <test.h>
 
 /* USER CODE END Includes */
@@ -113,25 +116,27 @@ int main(void)
   MX_USART6_UART_Init();
   MX_USART1_UART_Init();
   MX_I2C2_Init();
+
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
+
   initMotors(&htim1, &htim3, &htim4);
+  initServo(&htim2);
+  initColourSensors(&huart1, &huart6);
 
   while (1)
   {
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  //testMotors();
-	  //testServo(&htim2);
-	  testImu(&hi2c2);
+	  testMotors();
+	  testServo();
+	  //testImu(&hi2c2);
 	  //testColourSensor(&huart1, &huart6, &htim2);
-	  //testMotors();
   }
   /* USER CODE END 3 */
 }

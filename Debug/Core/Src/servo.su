@@ -1,3 +1,4 @@
-servo.c:4:6:moveServo	16	static
-servo.c:12:6:openServo	16	static
-servo.c:17:6:closeServo	16	static
+servo.c:6:6:initServo	16	static
+servo.c:11:6:moveServo	8	static
+servo.c:19:6:openServo	8	static
+servo.c:24:6:closeServo	8	static

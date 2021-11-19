@@ -1,20 +1,27 @@
 #include <main.h>
 #include <servo.h>
 
-void moveServo(TIM_HandleTypeDef *htim2) {
-	htim2->Instance->CCR1 = 75;
+TIM_HandleTypeDef *tim2;
+
+void initServo(TIM_HandleTypeDef *htim2) {
+	tim2 = htim2;
+	HAL_TIM_PWM_Start(htim2, TIM_CHANNEL_1);
+}
+
+void moveServo() {
+	tim2->Instance->CCR1 = 75;
 	HAL_Delay(2000);
 
-	htim2->Instance->CCR1 = 150;
+	tim2->Instance->CCR1 = 150;
 	HAL_Delay(2000);
 }
 
-void openServo(TIM_HandleTypeDef *htim2) {
-	htim2->Instance->CCR1 = 75;
+void openServo() {
+	tim2->Instance->CCR1 = 75;
 	HAL_Delay(1000);
 }
 
-void closeServo(TIM_HandleTypeDef *htim2) {
-	htim2->Instance->CCR1 = 150;
+void closeServo() {
+	tim2->Instance->CCR1 = 150;
 	HAL_Delay(1000);
 }

@@ -1,6 +1,7 @@
-colour_sensor.c:15:9:getRightColourRaw	24	static
-colour_sensor.c:24:9:getLeftColourRaw	24	static
-colour_sensor.c:31:8:getRightColour	24	static
-colour_sensor.c:48:8:getLeftColour	24	static
-colour_sensor.c:66:6:setRightColour	16	static
-colour_sensor.c:83:6:setLeftColour	16	static
+colour_sensor.c:22:6:initColourSensors	16	static
+colour_sensor.c:27:9:getRightColourRaw	16	static
+colour_sensor.c:35:9:getLeftColourRaw	16	static
+colour_sensor.c:45:8:getRightColour	8	static
+colour_sensor.c:67:8:getLeftColour	8	static
+colour_sensor.c:85:6:setRightColour	16	static
+colour_sensor.c:102:6:setLeftColour	16	static

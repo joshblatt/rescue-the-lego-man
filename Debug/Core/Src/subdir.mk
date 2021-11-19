@@ -5,6 +5,7 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../Core/Src/algorithm.c \
 ../Core/Src/colour_sensor.c \
 ../Core/Src/imu.c \
 ../Core/Src/main.c \
@@ -18,6 +19,7 @@ C_SRCS += \
 ../Core/Src/test.c 
 
 OBJS += \
+./Core/Src/algorithm.o \
 ./Core/Src/colour_sensor.o \
 ./Core/Src/imu.o \
 ./Core/Src/main.o \
@@ -31,6 +33,7 @@ OBJS += \
 ./Core/Src/test.o 
 
 C_DEPS += \
+./Core/Src/algorithm.d \
 ./Core/Src/colour_sensor.d \
 ./Core/Src/imu.d \
 ./Core/Src/main.d \

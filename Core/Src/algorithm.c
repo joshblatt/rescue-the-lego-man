@@ -2,6 +2,7 @@
 #include <colour_sensor.h>
 #include <stdbool.h>
 #include <main.h>
+#include <servo.h>
 
 // written by Fayyad Reza
 // C syntax might be weird at first, needs to be touched up

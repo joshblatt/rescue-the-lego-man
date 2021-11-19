@@ -12,5 +12,9 @@ void turnRight();
 void stopMotors();
 void stopLeftMotors();
 void stopRightMotors();
+void slowLeftMotors();
+void slowRightMotors();
+void speedLeftMotors();
+void speedRightMotors();
 
 #endif

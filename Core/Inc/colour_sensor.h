@@ -7,13 +7,15 @@ typedef enum Colour {
 	RED = 0b00,
 	BLUE = 0b01,
 	CLEAR = 0b10,
-	GREEN = 0b11
+	GREEN = 0b11,
+	NO_COLOUR
 } Colour;
 
-uint8_t getRightColourRaw(UART_HandleTypeDef *huart1);
-uint8_t getLeftColourRaw(UART_HandleTypeDef *huart6);
-Colour getRightColour(UART_HandleTypeDef *huart1);
-Colour getLeftColour(UART_HandleTypeDef *huart6);
+void initColourSensors(UART_HandleTypeDef *huart1, UART_HandleTypeDef *huart6);
+uint8_t getRightColourRaw();
+uint8_t getLeftColourRaw();
+Colour getRightColour();
+Colour getLeftColour();
 void setRightColour(Colour colour);
 void setLeftColour(Colour colour);
 

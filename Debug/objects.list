@@ -1,3 +1,4 @@
+"./Core/Src/algorithm.o"
 "./Core/Src/colour_sensor.o"
 "./Core/Src/imu.o"
 "./Core/Src/main.o"
