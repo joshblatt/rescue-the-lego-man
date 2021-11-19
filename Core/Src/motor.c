@@ -155,3 +155,61 @@ void stopMotors() {
 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_RESET);
 	HAL_Delay(1000);
 }
+
+void stopLeftMotors() {
+	// Motor 1
+	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
+
+	// Motor 2
+	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_4, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_RESET);
+	HAL_Delay(1000);
+}
+
+void stopRightMotors() {
+	// Motor 3
+	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_4, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_RESET);
+
+	// Motor 4
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_RESET);
+	HAL_Delay(1000);
+}
+
+void slowLeftMotors() {
+	// Motor 1
+	htim1->Instance->CCR2 = 250;
+
+	// Motor 2
+	htim3->Instance->CCR2 = 250;
+	HAL_Delay(1000);
+}
+
+void slowRightMotors() {
+	// Motor 3
+	htim4->Instance->CCR4 = 250;
+
+	// Motor 4
+	htim3->Instance->CCR1 = 250;
+	HAL_Delay(1000);
+}
+
+void speedLeftMotors() {
+	// Motor 1
+	htim1->Instance->CCR2 = 850;
+
+	// Motor 2
+	htim3->Instance->CCR2 = 850;
+	HAL_Delay(1000);
+}
+
+void speedRightMotors() {
+	// Motor 3
+	htim4->Instance->CCR4 = 850;
+
+	// Motor 4
+	htim3->Instance->CCR1 = 850;
+	HAL_Delay(1000);
+}
