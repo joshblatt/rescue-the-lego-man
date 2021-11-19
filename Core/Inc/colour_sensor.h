@@ -24,16 +24,18 @@ typedef struct {
 	uint8_t blue;
 } RGB;
 
-void initColourSensors(TIM_HandleTypeDef* htim4, UART_HandleTypeDef *huart6);
+void initColourSensors(TIM_HandleTypeDef* htim4);
 
 float getRightColourFrequency();
 void getRightColourIntensities(Frequency *freq);
 void getRightRGB(RGB *rgb);
 Colour getRightColour();
 
-uint8_t getLeftColourRaw();
-Colour getRightColour();
+float getLeftColourFrequency();
+void getLeftColourIntensities(Frequency *freq);
+void getLeftRGB(RGB *rgb);
 Colour getLeftColour();
+
 void setRightColour(Colour colour);
 void setLeftColour(Colour colour);
 

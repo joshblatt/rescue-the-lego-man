@@ -125,17 +125,17 @@ int main(void)
 
   initMotors(&htim1, &htim3);
   initServo(&htim2);
-  //initColourSensors(&htim4, &huart6);
+  initColourSensors(&htim4);
 
   while (1)
   {
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  testMotors();
-	  testServo();
+//	  testMotors();
+//	  testServo();
 	  //testImu(&hi2c2);
-	  //testColourSensor();
+	  testColourSensor();
   }
   /* USER CODE END 3 */
 }
@@ -438,6 +438,10 @@ static void MX_TIM4_Init(void)
   sConfigIC.ICPrescaler = TIM_ICPSC_DIV1;
   sConfigIC.ICFilter = 0;
   if (HAL_TIM_IC_ConfigChannel(&htim4, &sConfigIC, TIM_CHANNEL_2) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_TIM_IC_ConfigChannel(&htim4, &sConfigIC, TIM_CHANNEL_4) != HAL_OK)
   {
     Error_Handler();
   }

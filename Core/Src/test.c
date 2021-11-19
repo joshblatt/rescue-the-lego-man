@@ -10,15 +10,26 @@
 
 volatile Colour colourRight;
 volatile Colour colourLeft;
+
 RGB rgbRight;
+RGB rgbLeft;
+
 volatile uint8_t redRight;
 volatile uint8_t greenRight;
 volatile uint8_t blueRight;
+volatile uint8_t redLeft;
+volatile uint8_t greenLeft;
+volatile uint8_t blueLeft;
 void testColourSensor() {
 	getRightRGB(&rgbRight);
 	redRight = rgbRight.red;
 	greenRight = rgbRight.green;
 	blueRight = rgbRight.blue;
+
+	getLeftRGB(&rgbLeft);
+	redLeft = rgbLeft.red;
+	greenLeft = rgbLeft.green;
+	blueLeft = rgbLeft.blue;
 }
 
 void testMotors() {

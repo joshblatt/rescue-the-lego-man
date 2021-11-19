@@ -5,8 +5,8 @@ main.c:226:13:MX_TIM1_Init	80	static
 main.c:291:13:MX_TIM2_Init	64	static
 main.c:350:13:MX_TIM3_Init	48	static
 main.c:407:13:MX_TIM4_Init	32	static
-main.c:455:13:MX_USART2_UART_Init	8	static
-main.c:488:13:MX_USART6_UART_Init	8	static
-main.c:519:13:MX_DMA_Init	16	static
-main.c:537:13:MX_GPIO_Init	48	static
-main.c:596:6:Error_Handler	4	static,ignoring_inline_asm
+main.c:459:13:MX_USART2_UART_Init	8	static
+main.c:492:13:MX_USART6_UART_Init	8	static
+main.c:523:13:MX_DMA_Init	16	static
+main.c:541:13:MX_GPIO_Init	48	static
+main.c:600:6:Error_Handler	4	static,ignoring_inline_asm
