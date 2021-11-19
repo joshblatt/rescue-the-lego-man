@@ -207,6 +207,8 @@ Colour getRightColour() {
 	getRightRGB(&rgb);
 	if (rgb.red >= 200 && rgb.green >= 200 && rgb.blue >= 200) {
 		return NO_COLOUR;
+	} else if (rgb.red <= 20 && rgb.green <= 20 && rgb.blue <= 20) {
+		return BLACK;
 	} else if (rgb.red >= rgb.green && rgb.red >= rgb.blue) {
 		return RED;
 	} else if (rgb.green >= rgb.red && rgb.green >= rgb.blue) {

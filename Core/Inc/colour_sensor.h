@@ -8,6 +8,7 @@ typedef enum Colour {
 	BLUE = 0b01,
 	CLEAR = 0b10,
 	GREEN = 0b11,
+	BLACK,
 	NO_COLOUR
 } Colour;
 
