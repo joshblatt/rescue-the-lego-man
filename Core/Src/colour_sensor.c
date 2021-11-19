@@ -9,12 +9,12 @@
 // Right Colour Sensor
 // S2 = PC0
 // S3 = PC1
-// OUT = PB6(possible will change)
+// OUT = PA12(possible will change)
 
 // Left Colour Sensor
 // S2 = PC3
 // S3 = PB0
-// OUT = PA12 (works) huart6
+// OUT = PB7
 
 UART_HandleTypeDef *uart1;
 UART_HandleTypeDef *uart6;
@@ -25,7 +25,6 @@ void initColourSensors(UART_HandleTypeDef *huart1, UART_HandleTypeDef *huart6) {
 }
 
 uint8_t getRightColourRaw() {
-	// TODO change to different uart to read
 	uint8_t rxData = 0;
 	HAL_UART_Receive(uart1, &rxData, sizeof(rxData), HAL_MAX_DELAY);
 	HAL_Delay(10);

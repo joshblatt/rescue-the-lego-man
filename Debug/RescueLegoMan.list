@@ -352,7 +352,7 @@ Disassembly of section .text:
  80004ca:	bf00      	nop
 
 080004cc <initColourSensors>:
-// OUT = PA12 (works) huart6
+// OUT = PB7
 
 UART_HandleTypeDef *uart1;
 UART_HandleTypeDef *uart6;
