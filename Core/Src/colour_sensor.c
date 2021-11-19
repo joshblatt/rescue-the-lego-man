@@ -203,12 +203,30 @@ void getLeftRGB(RGB *rgb) {
 }
 
 Colour getRightColour() {
-	return CLEAR;
+	RGB rgb;
+	getRightRGB(&rgb);
+	if (rgb.red >= 200 && rgb.green >= 200 && rgb.blue >= 200) {
+		return NO_COLOUR;
+	} else if (rgb.red >= rgb.green && rgb.red >= rgb.blue) {
+		return RED;
+	} else if (rgb.green >= rgb.red && rgb.green >= rgb.blue) {
+		return GREEN;
+	}
+	return BLUE;
 }
 
 
 Colour getLeftColour() {
-	return CLEAR;
+	RGB rgb;
+	getLeftRGB(&rgb);
+	if (rgb.red >= 200 && rgb.green >= 200 && rgb.blue >= 200) {
+		return NO_COLOUR;
+	} else if (rgb.red >= rgb.green && rgb.red >= rgb.blue) {
+		return RED;
+	} else if (rgb.green >= rgb.red && rgb.green >= rgb.blue) {
+		return GREEN;
+	}
+	return BLUE;
 }
 
 void setRightColour(Colour colour) {

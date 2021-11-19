@@ -27,23 +27,23 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   ALLOC
  11 .ARM.attributes 00000030  00000000  00000000  0002000c  2**0
                   CONTENTS, READONLY
- 12 .debug_info   00013695  00000000  00000000  0002003c  2**0
+ 12 .debug_info   000136bd  00000000  00000000  0002003c  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 13 .debug_abbrev 0000254a  00000000  00000000  000336d1  2**0
+ 13 .debug_abbrev 00002577  00000000  00000000  000336f9  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_aranges 00001078  00000000  00000000  00035c20  2**3
+ 14 .debug_aranges 00001078  00000000  00000000  00035c70  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_ranges 00000fb8  00000000  00000000  00036c98  2**3
+ 15 .debug_ranges 00000fb8  00000000  00000000  00036ce8  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_macro  00002e7f  00000000  00000000  00037c50  2**0
+ 16 .debug_macro  00002e7f  00000000  00000000  00037ca0  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   00013c1d  00000000  00000000  0003aacf  2**0
+ 17 .debug_line   00013cf9  00000000  00000000  0003ab1f  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    00090147  00000000  00000000  0004e6ec  2**0
+ 18 .debug_str    00090147  00000000  00000000  0004e818  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000053  00000000  00000000  000de833  2**0
+ 19 .comment      00000053  00000000  00000000  000de95f  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  00004648  00000000  00000000  000de888  2**2
+ 20 .debug_frame  00004650  00000000  00000000  000de9b4  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -1818,9 +1818,9 @@ void getLeftRGB(RGB *rgb) {
  80013a4:	437f0000 	.word	0x437f0000
 
 080013a8 <setRightColour>:
-
-Colour getLeftColour() {
-	return CLEAR;
+		return GREEN;
+	}
+	return BLUE;
 }
 
 void setRightColour(Colour colour) {
