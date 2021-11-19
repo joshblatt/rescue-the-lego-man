@@ -3,7 +3,7 @@
 
 #include <main.h>
 
-void initMotors(TIM_HandleTypeDef *htim1, TIM_HandleTypeDef *htim3, TIM_HandleTypeDef *htim4);
+void initMotors(TIM_HandleTypeDef *htim1, TIM_HandleTypeDef *htim3);
 void moveMotors();
 void moveForwards();
 void moveBackwards();

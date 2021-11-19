@@ -22,7 +22,6 @@ void testColourSensor() {
 }
 
 void testMotors() {
-	//moveMotors();
 	moveForwards();
 	stopMotors();
 	moveBackwards();

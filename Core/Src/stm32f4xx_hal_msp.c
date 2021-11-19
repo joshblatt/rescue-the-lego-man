@@ -61,7 +61,7 @@ extern DMA_HandleTypeDef hdma_tim4_ch2;
 /* USER CODE END 0 */
 
 void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
-                                                                                /**
+                                                            /**
   * Initializes the Global MSP.
   */
 void HAL_MspInit(void)
@@ -329,6 +329,7 @@ void HAL_TIM_MspPostInit(TIM_HandleTypeDef* htim)
     /**TIM3 GPIO Configuration
     PA6     ------> TIM3_CH1
     PC7     ------> TIM3_CH2
+    PC9     ------> TIM3_CH4
     */
     GPIO_InitStruct.Pin = GPIO_PIN_6;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
@@ -337,7 +338,7 @@ void HAL_TIM_MspPostInit(TIM_HandleTypeDef* htim)
     GPIO_InitStruct.Alternate = GPIO_AF2_TIM3;
     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-    GPIO_InitStruct.Pin = GPIO_PIN_7;
+    GPIO_InitStruct.Pin = GPIO_PIN_7|GPIO_PIN_9;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -347,27 +348,6 @@ void HAL_TIM_MspPostInit(TIM_HandleTypeDef* htim)
   /* USER CODE BEGIN TIM3_MspPostInit 1 */
 
   /* USER CODE END TIM3_MspPostInit 1 */
-  }
-  else if(htim->Instance==TIM4)
-  {
-  /* USER CODE BEGIN TIM4_MspPostInit 0 */
-
-  /* USER CODE END TIM4_MspPostInit 0 */
-
-    __HAL_RCC_GPIOB_CLK_ENABLE();
-    /**TIM4 GPIO Configuration
-    PB9     ------> TIM4_CH4
-    */
-    GPIO_InitStruct.Pin = GPIO_PIN_9;
-    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
-    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-    GPIO_InitStruct.Alternate = GPIO_AF2_TIM4;
-    HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
-
-  /* USER CODE BEGIN TIM4_MspPostInit 1 */
-
-  /* USER CODE END TIM4_MspPostInit 1 */
   }
 
 }
@@ -450,9 +430,8 @@ void HAL_TIM_IC_MspDeInit(TIM_HandleTypeDef* htim_ic)
 
     /**TIM4 GPIO Configuration
     PB7     ------> TIM4_CH2
-    PB9     ------> TIM4_CH4
     */
-    HAL_GPIO_DeInit(GPIOB, GPIO_PIN_7|GPIO_PIN_9);
+    HAL_GPIO_DeInit(GPIOB, GPIO_PIN_7);
 
     /* TIM4 DMA DeInit */
     HAL_DMA_DeInit(htim_ic->hdma[TIM_DMA_ID_CC2]);
