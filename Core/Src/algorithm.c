@@ -25,21 +25,12 @@
 // Robot moves until it finds red perpendicular line (double red)
 // Stop motors at red
 
+void movement(Colour stopColour, Colour leftColour, Colour rightColour, bool leftSlowed, bool rightSlowed) 	{
+	// need to test if condition will break at any unintended time
+	// need to test if params (left/right color, left/right slowed) carry over (pass as copy or pass with address thing)
 
-void searchAndRescue()	{
-	// init()
-	// need to have init function somewhere - will call initMotors(), initColorSensor(), initIMU(), initServo() -- essentially just initialize everything necessary
-
-	Colour leftColour = NO_COLOUR;
-	Colour rightColour = NO_COLOUR;
-	// bool might be done wrong
-	bool leftSlowed = false;
-	bool rightSlowed = false;
-
-	// move to blue danger zone
-	moveForwards();
-	// TODO: put this into function - have BLUE/RED as params
-	while (leftColour != BLUE && rightColour != BLUE) {
+	bool condition = true;
+	while (condition) {
 		// possible optimizing - can check motor speed directly -- can get rid of leftslowed/rightslowed and just check the values direct to see if slowed
 		// code currently slows motor down if it begins to turn (in that direction), and speeds it back up when it is out of the turn
 
@@ -66,7 +57,27 @@ void searchAndRescue()	{
 				speedRightMotors();
 			}
 		}
+
+		if (stopColour == GREEN) condition = leftColour != stopColour || rightColour != stopColour;
+		else condition = leftColour != stopColour && rightColour != stopColour;
+
 	}
+}
+
+
+void searchAndRescue()	{
+	// init()
+	// need to have init function somewhere - will call initMotors(), initColorSensor(), initIMU(), initServo() -- essentially just initialize everything necessary
+
+	Colour leftColour = NO_COLOUR;
+	Colour rightColour = NO_COLOUR;
+	// bool might be done wrong
+	bool leftSlowed = false;
+	bool rightSlowed = false;
+
+	// move to blue danger zone
+	moveForwards();
+	movement(BLUE, leftColour, rightColour, leftSlowed, rightSlowed);
 
 	stopMotors();
 	openServo();
@@ -85,35 +96,7 @@ void searchAndRescue()	{
 	// since its on the side, both colour sensors wont pick it up. once one of them reads green, we are at a safe zone and can initiate drop off
 	// TODO: put this into function - have BLUE/RED as params
 	moveForwards();
-	while (leftColour != GREEN || rightColour != GREEN) {
-		// possible optimizing - can check motor speed directly -- can get rid of leftslowed/rightslowed and just check the values direct to see if slowed
-		// code currently slows motor down if it begins to turn (in that direction), and speeds it back up when it is out of the turn
-
-		leftColour = getLeftColour();
-		rightColour = getRightColour();
-
-		if (leftColour == RED || rightColour == RED)	{
-			if (leftColour == RED) {
-				slowLeftMotors();
-				leftSlowed = true;
-			}
-			else if (leftColour == RED) {
-				slowRightMotors();
-				rightSlowed = true;
-			}
-		}
-		else {
-			if (leftSlowed == false)	{
-				leftSlowed = true;
-				speedLeftMotors();
-			}
-			if (rightSlowed == false)	{
-				rightSlowed = true;
-				speedRightMotors();
-			}
-		}
-	}
-
+	movement(GREEN, leftColour, rightColour, leftSlowed, rightSlowed);
 	stopMotors();
 
 	// NOT CORRECT - NEED TO MOVE BASED ON DISTANCE, RIGHT NOW DOING WITH ARBITRARY DELAY
@@ -135,34 +118,7 @@ void searchAndRescue()	{
 
 	// move to home
 	moveForwards();
-	while (leftColour != RED && rightColour != RED) {
-		// possible optimizing - can check motor speed directly -- can get rid of leftslowed/rightslowed and just check the values direct to see if slowed
-		// code currently slows motor down if it begins to turn (in that direction), and speeds it back up when it is out of the turn
-
-		leftColour = getLeftColour();
-		rightColour = getRightColour();
-
-		if (leftColour == RED || rightColour == RED)	{
-			if (leftColour == RED) {
-				slowLeftMotors();
-				leftSlowed = true;
-			}
-			else if (leftColour == RED) {
-				slowRightMotors();
-				rightSlowed = true;
-			}
-		}
-		else {
-			if (leftSlowed == false)	{
-				leftSlowed = true;
-				speedLeftMotors();
-			}
-			if (rightSlowed == false)	{
-				rightSlowed = true;
-				speedRightMotors();
-			}
-		}
-	}
+	movement(RED, leftColour, rightColour, leftSlowed, rightSlowed);
 	stopMotors();
 }
 
