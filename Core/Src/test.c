@@ -47,6 +47,6 @@ void testServo() {
 	moveServo();
 }
 
-void testImu(I2C_HandleTypeDef *hi2c2) {
-	readGyro(hi2c2);
+void testImu() {
+	readGyro();
 }
