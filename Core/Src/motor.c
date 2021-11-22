@@ -119,7 +119,7 @@ void turnRight() {
 	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_SET);
 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_RESET);
 
-	HAL_Delay(2000);
+	HAL_Delay(1000);
 }
 
 void turnLeft() {
@@ -139,7 +139,7 @@ void turnLeft() {
 	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_RESET);
 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_SET);
 
-	HAL_Delay(2000);
+	HAL_Delay(1000);
 }
 
 void stopMotors() {

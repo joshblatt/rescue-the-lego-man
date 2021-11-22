@@ -84,12 +84,13 @@ void searchAndRescue()	{
 
 	// NOT CORRECT - NEED TO MOVE BASED ON DISTANCE, RIGHT NOW DOING WITH ARBITRARY DELAY
 	moveForwards();
-	HAL_Delay(1500);
+	HAL_Delay(1680); // 10cm at 7cm/s at 85% speed => 1680~ms ---- might need to remove delay in moveForwards function;
 	stopMotors();
 	closeServo();
-
+10
 	// ROTATE 180 - USED TURN RIGHT FOR NOW BUT WILL CHANGE WITH IMU
 	turnRight();
+	HAL_Delay(1000); // turnRight has 1000ms delay, which is approx 90 degrees - add another 1000ms delay to finish 180 rotate
 	stopMotors();
 
 	// move to green safe zone
@@ -101,9 +102,8 @@ void searchAndRescue()	{
 
 	// NOT CORRECT - NEED TO MOVE BASED ON DISTANCE, RIGHT NOW DOING WITH ARBITRARY DELAY
 	moveForwards();
-	HAL_Delay(1500);
+	HAL_Delay(1500); // 9cm at 7cm/s at 85% speed ==> ~1500ms
 	stopMotors();
-	closeServo();
 
 	// ROTATE 90 IN SPECIFIC DIRECTION - USED TURN RIGHT FOR NOW BUT WILL CHANGE WITH IMU - turn left/right doesnt give 90 rn so have to change when IMU updated
 	if (leftColour == GREEN) turnLeft();
@@ -113,7 +113,7 @@ void searchAndRescue()	{
 
 	// reverse turn in opposite direction to get back to red line (starting position when green initially found)
 	if (leftColour == GREEN) turnRight();
-	else turnLeft();
+	else turnLeft(); // left turn might be a bit buggier due to awkward wheel
 	stopMotors();
 
 	// move to home
