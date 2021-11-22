@@ -24,6 +24,7 @@
 /* USER CODE BEGIN Includes */
 
 #include <colour_sensor.h>
+#include <imu.h>
 #include <motor.h>
 #include <servo.h>
 #include <test.h>
@@ -125,7 +126,9 @@ int main(void)
 
   initMotors(&htim1, &htim3);
   initServo(&htim2);
-  initColourSensors(&htim4);
+  initImu(&hi2c2);
+  //initColourSensors(&htim4);
+
 
   while (1)
   {
@@ -134,8 +137,8 @@ int main(void)
     /* USER CODE BEGIN 3 */
 //	  testMotors();
 //	  testServo();
-	  //testImu(&hi2c2);
-	  testColourSensor();
+	  testImu(&hi2c2);
+	  //testColourSensor();
   }
   /* USER CODE END 3 */
 }
