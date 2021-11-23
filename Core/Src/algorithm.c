@@ -33,7 +33,10 @@ void init(TIM_HandleTypeDef *htim1, TIM_HandleTypeDef *htim3, TIM_HandleTypeDef 
 	  initColourSensors(htim4);
 }
 
-void movement(Colour stopColour, Colour leftColour, Colour rightColour, bool leftSlowed, bool rightSlowed) 	{
+volatile Colour leftColour = NO_COLOUR;
+volatile Colour rightColour = NO_COLOUR;
+
+void movement(Colour stopColour, bool leftSlowed, bool rightSlowed) {
 	// need to test if condition will break at any unintended time
 	// need to test if params (left/right color, left/right slowed) carry over (pass as copy or pass with address thing)
 
@@ -48,27 +51,25 @@ void movement(Colour stopColour, Colour leftColour, Colour rightColour, bool lef
 		if (leftColour == RED || rightColour == RED)	{
 			if (leftColour == RED) {
 				stopMotors();
-				HAL_Delay(200);
+				speedLeftMotors();
+				speedRightMotors();
+				HAL_Delay(150);
 				turnLeft();
-				HAL_Delay(200);
-//				while (getLeftColour() == RED) {
-//					HAL_Delay(5);
-//				}
+				HAL_Delay(300);
 				stopMotors();
-				HAL_Delay(200);
+				HAL_Delay(150);
 				//slowLeftMotors();
 				leftSlowed = true;
 			}
 			else if (rightColour == RED) {
 				stopMotors();
-				HAL_Delay(200);
+				speedLeftMotors();
+				speedRightMotors();
+				HAL_Delay(150);
 				turnRight();
-				HAL_Delay(200);
-//				while (getRightColour() == RED) {
-//					HAL_Delay(5);
-//				}
+				HAL_Delay(300);
 				stopMotors();
-				HAL_Delay(200);
+				HAL_Delay(150);
 				//slowRightMotors();
 				rightSlowed = true;
 			}
@@ -76,13 +77,17 @@ void movement(Colour stopColour, Colour leftColour, Colour rightColour, bool lef
 		else {
 			if (leftSlowed == true)	{
 				leftSlowed = false;
+				regularLeftMotors();
+				regularRightMotors();
 				moveForwards();
-				HAL_Delay(150);
+				HAL_Delay(300);
 			}
 			if (rightSlowed == true)	{
 				rightSlowed = false;
+				regularLeftMotors();
+				regularRightMotors();
 				moveForwards();
-				HAL_Delay(150);
+				HAL_Delay(300);
 			}
 		}
 
@@ -91,9 +96,6 @@ void movement(Colour stopColour, Colour leftColour, Colour rightColour, bool lef
 
 	}
 }
-
-volatile Colour leftColour = NO_COLOUR;
-volatile Colour rightColour = NO_COLOUR;
 
 void searchAndRescue()	{
 	// init()
@@ -105,20 +107,14 @@ void searchAndRescue()	{
 	bool rightSlowed = false;
 
 	// move to blue danger zone
-//	moveLeftMotors();
-//	HAL_Delay(50);
-//	speedLeftMotors();
-//	HAL_Delay(3000);
-//	stopMotors();
-//	HAL_Delay(1000);
-//	moveRightMotors();
-//	HAL_Delay(50);
-//	speedRightMotors();
-//	HAL_Delay(3000);
-//	stopMotors();
+//	while(true) {
+//		leftColour = getLeftColour();
+//		rightColour = getRightColour();
+//	}
+
 
 	moveForwards();
-	movement(BLUE, leftColour, rightColour, leftSlowed, rightSlowed);
+	movement(BLUE, leftSlowed, rightSlowed);
 
 	stopMotors();
 	openServo();

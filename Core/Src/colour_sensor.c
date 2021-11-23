@@ -134,7 +134,7 @@ void initColourSensors(TIM_HandleTypeDef* htim4) {
 		HAL_Delay(50);
 	}
 
-	HAL_Delay(10);
+	HAL_Delay(500);
 
 }
 

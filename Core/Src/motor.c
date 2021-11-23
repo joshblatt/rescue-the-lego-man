@@ -12,10 +12,10 @@ void initMotors(TIM_HandleTypeDef *htim1, TIM_HandleTypeDef *htim3) {
 	  HAL_TIM_PWM_Start(htim3, TIM_CHANNEL_1);
 	  tim1 = htim1;
 	  tim3 = htim3;
-	  htim1->Instance->CCR2 = 1000;
-	  htim3->Instance->CCR2 = 1000;
-	  htim3->Instance->CCR4 = 1000;
-	  htim3->Instance->CCR1 = 1000;
+	  htim1->Instance->CCR2 = 600;
+	  htim3->Instance->CCR2 = 600;
+	  htim3->Instance->CCR4 = 600;
+	  htim3->Instance->CCR1 = 600;
 	  HAL_Delay(1000);
 }
 
@@ -240,18 +240,18 @@ void regularRightMotors() {
 
 void speedLeftMotors() {
 	// Motor 1
-	tim1->Instance->CCR2 = 900;
+	tim1->Instance->CCR2 = 1000;
 
 	// Motor 2
-	tim3->Instance->CCR2 = 900;
+	tim3->Instance->CCR2 = 1000;
 	//HAL_Delay(1000);
 }
 
 void speedRightMotors() {
 	// Motor 3
-	tim3->Instance->CCR4 = 900;
+	tim3->Instance->CCR4 = 1000;
 
 	// Motor 4
-	tim3->Instance->CCR1 = 900;
+	tim3->Instance->CCR1 = 1000;
 	//HAL_Delay(1000);
 }

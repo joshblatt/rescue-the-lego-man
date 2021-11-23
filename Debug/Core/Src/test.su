@@ -1,4 +1,4 @@
 test.c:23:6:testColourSensor	8	static
 test.c:35:6:testMotors	8	static
-test.c:46:6:testServo	8	static
-test.c:50:6:testImu	8	static
+test.c:54:6:testServo	8	static
+test.c:58:6:testImu	8	static

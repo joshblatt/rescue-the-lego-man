@@ -34,13 +34,21 @@ void testColourSensor() {
 
 void testMotors() {
 	moveForwards();
+	HAL_Delay(3000);
 	stopMotors();
+	HAL_Delay(3000);
 	moveBackwards();
+	HAL_Delay(3000);
 	stopMotors();
+	HAL_Delay(3000);
 	turnRight();
+	HAL_Delay(3000);
 	stopMotors();
+	HAL_Delay(3000);
 	turnLeft();
+	HAL_Delay(3000);
 	stopMotors();
+	HAL_Delay(3000);
 }
 
 void testServo() {
