@@ -6,6 +6,8 @@ TIM_HandleTypeDef *tim2;
 void initServo(TIM_HandleTypeDef *htim2) {
 	tim2 = htim2;
 	HAL_TIM_PWM_Start(htim2, TIM_CHANNEL_1);
+	tim2->Instance->CCR1 = 125;
+
 }
 
 void moveServo() {

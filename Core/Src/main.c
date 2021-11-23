@@ -22,7 +22,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include <algorithm.h>
 #include <colour_sensor.h>
 #include <imu.h>
 #include <motor.h>
@@ -124,11 +124,12 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 
-  initMotors(&htim1, &htim3);
-  initServo(&htim2);
-  initImu(&hi2c2);
-  //initColourSensors(&htim4);
-
+//  initMotors(&htim1, &htim3);
+//  initServo(&htim2);
+//  initColourSensors(&htim4);
+//  HAL_Delay(3000);
+  init(&htim1, &htim3, &htim2, &htim4);
+  searchAndRescue();
 
   while (1)
   {
@@ -137,7 +138,7 @@ int main(void)
     /* USER CODE BEGIN 3 */
 //	  testMotors();
 //	  testServo();
-	  testImu(&hi2c2);
+	  //testImu(&hi2c2);
 	  //testColourSensor();
   }
   /* USER CODE END 3 */
@@ -241,9 +242,9 @@ static void MX_TIM1_Init(void)
 
   /* USER CODE END TIM1_Init 1 */
   htim1.Instance = TIM1;
-  htim1.Init.Prescaler = 1680;
+  htim1.Init.Prescaler = 1000;
   htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim1.Init.Period = 1000;
+  htim1.Init.Period = 1680;
   htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim1.Init.RepetitionCounter = 0;
   htim1.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
@@ -589,6 +590,10 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+  /* EXTI interrupt init*/
+  HAL_NVIC_SetPriority(EXTI15_10_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
 
 }
 

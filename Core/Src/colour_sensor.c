@@ -95,22 +95,44 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
 	}
 }
 
+volatile uint8_t numButtonPresses = 0;
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
+	if (GPIO_Pin == GPIO_PIN_13) {
+		if (numButtonPresses == 0) {
+			numButtonPresses = 1;
+
+		} else if (numButtonPresses == 1) {
+			numButtonPresses = 2;
+
+		} else if (numButtonPresses == 2) {
+			numButtonPresses = 3;
+		}
+	}
+}
+
 // Initialize and calibrate colour sensors
 void initColourSensors(TIM_HandleTypeDef* htim4) {
 	tim4 = htim4;
 	HAL_TIM_IC_Start_IT(tim4, TIM_CHANNEL_2);
 	HAL_TIM_IC_Start_IT(tim4, TIM_CHANNEL_4);
 
-	// Give 5 seconds to place white sheet in front of sensors
-	HAL_Delay(5000);
+	while (numButtonPresses == 0) {
+		HAL_Delay(50);
+	}
 	getRightColourIntensities(&freqWBRight);
 	getLeftColourIntensities(&freqWBLeft);
 	whiteBalance = true;
-	// Give 5 seconds to place black sheet in front of sensors
-	HAL_Delay(5000);
+
+	while (numButtonPresses == 1) {
+		HAL_Delay(50);
+	}
 	getRightColourIntensities(&freqDCRight);
 	getLeftColourIntensities(&freqDCLeft);
 	darkColour = true;
+
+	while (numButtonPresses == 2) {
+		HAL_Delay(50);
+	}
 
 	HAL_Delay(10);
 

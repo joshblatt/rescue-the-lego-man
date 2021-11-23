@@ -1,1 +1,3 @@
-algorithm.c:29:6:searchAndRescue	16	static
+algorithm.c:30:6:init	24	static
+algorithm.c:36:6:movement	32	static
+algorithm.c:98:6:searchAndRescue	24	static

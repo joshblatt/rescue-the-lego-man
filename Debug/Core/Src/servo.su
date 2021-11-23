@@ -1,4 +1,4 @@
 servo.c:6:6:initServo	16	static
-servo.c:11:6:moveServo	8	static
-servo.c:19:6:openServo	8	static
-servo.c:24:6:closeServo	8	static
+servo.c:13:6:moveServo	8	static
+servo.c:21:6:openServo	8	static
+servo.c:26:6:closeServo	8	static

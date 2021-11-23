@@ -1,4 +1,4 @@
-Core/Src/algorithm.o: ../Core/Src/algorithm.c ../Core/Inc/motor.h \
+Core/Src/algorithm.o: ../Core/Src/algorithm.c ../Core/Inc/algorithm.h \
  ../Core/Inc/main.h ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  ../Core/Inc/stm32f4xx_hal_conf.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
@@ -29,9 +29,9 @@ Core/Src/algorithm.o: ../Core/Src/algorithm.c ../Core/Inc/motor.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
- ../Core/Inc/colour_sensor.h ../Core/Inc/servo.h
+ ../Core/Inc/motor.h ../Core/Inc/colour_sensor.h ../Core/Inc/servo.h
 
-../Core/Inc/motor.h:
+../Core/Inc/algorithm.h:
 
 ../Core/Inc/main.h:
 
@@ -94,6 +94,8 @@ Core/Src/algorithm.o: ../Core/Src/algorithm.c ../Core/Inc/motor.h \
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h:
 
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
+
+../Core/Inc/motor.h:
 
 ../Core/Inc/colour_sensor.h:
 

@@ -12,10 +12,10 @@ void initMotors(TIM_HandleTypeDef *htim1, TIM_HandleTypeDef *htim3) {
 	  HAL_TIM_PWM_Start(htim3, TIM_CHANNEL_1);
 	  tim1 = htim1;
 	  tim3 = htim3;
-	  htim1->Instance->CCR2 = 850;
-	  htim3->Instance->CCR2 = 850;
-	  htim3->Instance->CCR4 = 850;
-	  htim3->Instance->CCR1 = 850;
+	  htim1->Instance->CCR2 = 1000;
+	  htim3->Instance->CCR2 = 1000;
+	  htim3->Instance->CCR4 = 1000;
+	  htim3->Instance->CCR1 = 1000;
 	  HAL_Delay(1000);
 }
 
@@ -79,7 +79,7 @@ void moveForwards() {
 	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_RESET);
 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_SET);
 
-	HAL_Delay(1000);
+	//HAL_Delay(1000);
 }
 
 void moveBackwards() {
@@ -99,8 +99,31 @@ void moveBackwards() {
 	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_SET);
 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_RESET);
 
-	HAL_Delay(1000);
+	//HAL_Delay(1000);
 }
+
+void moveLeftMotors() {
+	// Motor 1
+	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);
+
+	// Motor 2
+	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_4, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_SET);
+
+}
+
+void moveRightMotors() {
+	// Motor 3
+	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_4, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_SET);
+
+	// Motor 4
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_SET);
+}
+
+
 
 void turnRight() {
 	// Motor 1
@@ -118,8 +141,6 @@ void turnRight() {
 	// Motor 4
 	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_SET);
 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_RESET);
-
-	HAL_Delay(1000);
 }
 
 void turnLeft() {
@@ -138,8 +159,6 @@ void turnLeft() {
 	// Motor 4
 	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_RESET);
 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_SET);
-
-	HAL_Delay(1000);
 }
 
 void stopMotors() {
@@ -158,7 +177,7 @@ void stopMotors() {
 	// Motor 4
 	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_RESET);
 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_RESET);
-	HAL_Delay(1000);
+	//HAL_Delay(1000);
 }
 
 void stopLeftMotors() {
@@ -169,7 +188,7 @@ void stopLeftMotors() {
 	// Motor 2
 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_4, GPIO_PIN_RESET);
 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_RESET);
-	HAL_Delay(1000);
+	//HAL_Delay(1000);
 }
 
 void stopRightMotors() {
@@ -180,41 +199,59 @@ void stopRightMotors() {
 	// Motor 4
 	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_RESET);
 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_RESET);
-	HAL_Delay(1000);
+	//HAL_Delay(1000);
 }
 
 void slowLeftMotors() {
 	// Motor 1
-	tim1->Instance->CCR2 = 250;
+	tim1->Instance->CCR2 = 400;
 
 	// Motor 2
-	tim3->Instance->CCR2 = 250;
-	HAL_Delay(1000);
+	tim3->Instance->CCR2 = 400;
+	//HAL_Delay(1000);
 }
 
 void slowRightMotors() {
 	// Motor 3
-	tim3->Instance->CCR4 = 250;
+	tim3->Instance->CCR4 = 400;
 
 	// Motor 4
-	tim3->Instance->CCR1 = 250;
-	HAL_Delay(1000);
+	tim3->Instance->CCR1 = 400;
+	//HAL_Delay(1000);
+}
+
+void regularLeftMotors() {
+	// Motor 1
+	tim1->Instance->CCR2 = 600;
+
+	// Motor 2
+	tim3->Instance->CCR2 = 600;
+	//HAL_Delay(1000);
+}
+
+void regularRightMotors() {
+	// Motor 3
+	tim3->Instance->CCR4 = 600;
+
+	// Motor 4
+	tim3->Instance->CCR1 = 600;
+	//HAL_Delay(1000);
 }
 
 void speedLeftMotors() {
 	// Motor 1
-	tim1->Instance->CCR2 = 850;
+	tim1->Instance->CCR2 = 900;
 
 	// Motor 2
-	tim3->Instance->CCR2 = 850;
-	HAL_Delay(1000);
+	tim3->Instance->CCR2 = 900;
+	//HAL_Delay(1000);
 }
 
 void speedRightMotors() {
 	// Motor 3
-	tim3->Instance->CCR4 = 850;
+	tim3->Instance->CCR4 = 900;
 
 	// Motor 4
-	tim3->Instance->CCR1 = 850;
-	HAL_Delay(1000);
+	tim3->Instance->CCR1 = 900;
+	//HAL_Delay(1000);
 }
