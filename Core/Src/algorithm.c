@@ -36,58 +36,54 @@ void init(TIM_HandleTypeDef *htim1, TIM_HandleTypeDef *htim3, TIM_HandleTypeDef 
 volatile Colour leftColour = NO_COLOUR;
 volatile Colour rightColour = NO_COLOUR;
 
-void movement(Colour stopColour, bool leftSlowed, bool rightSlowed) {
+void movement(Colour stopColour) {
 	// need to test if condition will break at any unintended time
 	// need to test if params (left/right color, left/right slowed) carry over (pass as copy or pass with address thing)
 
 	bool condition = true;
+	bool turn = false;
 	while (condition) {
 		// possible optimizing - can check motor speed directly -- can get rid of leftslowed/rightslowed and just check the values direct to see if slowed
 		// code currently slows motor down if it begins to turn (in that direction), and speeds it back up when it is out of the turn
 
+		// TODO:
+		// turn speedleft/right and regleft/right into one function
+		//
+
+
+
 		leftColour = getLeftColour();
 		rightColour = getRightColour();
 
+		// turning conditions
 		if (leftColour == RED || rightColour == RED)	{
-			if (leftColour == RED) {
+			// only stop motors if it hasnt started turn yet
+			// room for error with this - not sure how fast it can switch from turning left to turning right or from turn to straight
+			// valid option to stop after each micro-turn - initial implementation is to stop, turn a bit, stop, turn a bit until turn is complete
+			// optimistic goal is to not stop after each micro-turn - turn, turn again, turn again, etc. until turn complete
+
+			if (!turn) {
 				stopMotors();
 				speedLeftMotors();
 				speedRightMotors();
 				HAL_Delay(150);
+			}
+			if (leftColour == RED) {
 				turnLeft();
-				HAL_Delay(300);
-				stopMotors();
-				HAL_Delay(150);
-				//slowLeftMotors();
-				leftSlowed = true;
 			}
 			else if (rightColour == RED) {
-				stopMotors();
-				speedLeftMotors();
-				speedRightMotors();
-				HAL_Delay(150);
 				turnRight();
-				HAL_Delay(300);
-				stopMotors();
-				HAL_Delay(150);
-				//slowRightMotors();
-				rightSlowed = true;
 			}
+			turn = true;
 		}
+		// coming out of turn - reset motors to regular speed, change bool to false to signify that turn its not in turn
 		else {
-			if (leftSlowed == true)	{
-				leftSlowed = false;
+			if (turn) {
 				regularLeftMotors();
 				regularRightMotors();
 				moveForwards();
 				HAL_Delay(300);
-			}
-			if (rightSlowed == true)	{
-				rightSlowed = false;
-				regularLeftMotors();
-				regularRightMotors();
-				moveForwards();
-				HAL_Delay(300);
+				turn = false;
 			}
 		}
 
@@ -134,7 +130,7 @@ void searchAndRescue()	{
 //	// since its on the side, both colour sensors wont pick it up. once one of them reads green, we are at a safe zone and can initiate drop off
 //	// TODO: put this into function - have BLUE/RED as params
 //	moveForwards();
-//	movement(GREEN, leftColour, rightColour, leftSlowed, rightSlowed);
+//	movement(GREEN);
 //	stopMotors();
 //
 //	// NOT CORRECT - NEED TO MOVE BASED ON DISTANCE, RIGHT NOW DOING WITH ARBITRARY DELAY
@@ -155,7 +151,7 @@ void searchAndRescue()	{
 //
 //	// move to home
 //	moveForwards();
-//	movement(RED, leftColour, rightColour, leftSlowed, rightSlowed);
+//	movement(RED);
 //	stopMotors();
 }
 
