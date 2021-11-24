@@ -1,6 +1,6 @@
 algorithm.c:30:6:init	24	static
 algorithm.c:39:6:movement	24	static
-algorithm.c:98:6:pickup	16	static
-algorithm.c:149:6:turnAround	8	static
-algorithm.c:166:6:goHome	24	static
-algorithm.c:225:6:searchAndRescue	8	static
+algorithm.c:99:6:pickup	16	static
+algorithm.c:150:6:turnAround	8	static
+algorithm.c:171:6:goHome	24	static
+algorithm.c:232:6:searchAndRescue	8	static

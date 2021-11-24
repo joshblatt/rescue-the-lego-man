@@ -90,7 +90,8 @@ void movement(Colour stopColour) {
 		}
 
 		if (stopColour == GREEN) condition = leftColour != stopColour || rightColour != stopColour;
-		else condition = leftColour != stopColour && rightColour != stopColour;
+		// was previously &&
+		else condition = leftColour != stopColour || rightColour != stopColour;
 
 	}
 }
@@ -157,8 +158,12 @@ void turnAround() {
 	HAL_Delay(50);
 	turnRight();
 
-	while (getRightColour() != RED) {}
-	while (getLeftColour() != RED) {}
+	while (getRightColour() != RED) {
+		HAL_Delay(50);
+	}
+	while (getLeftColour() != RED) {
+		HAL_Delay(50);
+	}
 	stopMotors();
 	HAL_Delay(50);
 }
@@ -167,6 +172,9 @@ void goHome(Colour stopColour) {
 	// need to test if condition will break at any unintended time
 	// need to test if params (left/right color, left/right slowed) carry over (pass as copy or pass with address thing)
 
+	moveForwards();
+	HAL_Delay(50);
+
 	bool condition = true;
 	bool turn = false;
 	while (condition) {
@@ -174,7 +182,7 @@ void goHome(Colour stopColour) {
 		// code currently slows motor down if it begins to turn (in that direction), and speeds it back up when it is out of the turn
 
 		// TODO:
-		// turn speedleft/right and regleft/right into one function
+		// turn speed left/right and regleft/right into one function
 		//
 
 
@@ -215,80 +223,26 @@ void goHome(Colour stopColour) {
 				turn = false;
 			}
 		}
-
-		if (stopColour == GREEN) condition = leftColour != stopColour || rightColour != stopColour;
-		else condition = leftColour != stopColour && rightColour != stopColour;
+		// break when left = red && right = red
+		condition = leftColour != stopColour || rightColour != stopColour;
 
 	}
 }
 
 void searchAndRescue()	{
-	// init()
-	// need to have init function somewhere - will call initMotors(), initColorSensor(), initIMU(), initServo() -- essentially just initialize everything necessary
-
-
-	// bool might be done wrong
-
-	// move to blue danger zone
-//	while(true) {
-//		leftColour = getLeftColour();
-//		rightColour = getRightColour();
-//	}
-
-
+	// Move to pickup zone
 	moveForwards();
 	movement(BLUE);
 
+	// Pickup Lego Man
 	pickup();
+	// Turn around
 	turnAround();
+
 	goHome(RED);
 	stopMotors();
 	HAL_Delay(50);
 	openServo();
 	HAL_Delay(300);
-
-	// move until both see red
-	//
-
-
-//
-//	// NOT CORRECT - NEED TO MOVE BASED ON DISTANCE, RIGHT NOW DOING WITH ARBITRARY DELAY
-//	moveForwards();
-//	HAL_Delay(1680); // 10cm at 7cm/s at 85% speed => 1680~ms ---- might need to remove delay in moveForwards function;
-//	stopMotors();
-//	closeServo();
-//
-//	// ROTATE 180 - USED TURN RIGHT FOR NOW BUT WILL CHANGE WITH IMU
-//	turnRight();
-//	HAL_Delay(1000); // turnRight has 1000ms delay, which is approx 90 degrees - add another 1000ms delay to finish 180 rotate
-//	stopMotors();
-
-//	// move to green safe zone
-//	// since its on the side, both colour sensors wont pick it up. once one of them reads green, we are at a safe zone and can initiate drop off
-//	// TODO: put this into function - have BLUE/RED as params
-//	moveForwards();
-//	movement(GREEN);
-//	stopMotors();
-//
-//	// NOT CORRECT - NEED TO MOVE BASED ON DISTANCE, RIGHT NOW DOING WITH ARBITRARY DELAY
-//	moveForwards();
-//	HAL_Delay(1500); // 9cm at 7cm/s at 85% speed ==> ~1500ms
-//	stopMotors();
-//
-//	// ROTATE 90 IN SPECIFIC DIRECTION - USED TURN RIGHT FOR NOW BUT WILL CHANGE WITH IMU - turn left/right doesnt give 90 rn so have to change when IMU updated
-//	if (leftColour == GREEN) turnLeft();
-//	else turnRight();
-//	stopMotors();
-//	openServo();
-//
-//	// reverse turn in opposite direction to get back to red line (starting position when green initially found)
-//	if (leftColour == GREEN) turnRight();
-//	else turnLeft(); // left turn might be a bit buggier due to awkward wheel
-//	stopMotors();
-//
-//	// move to home
-//	moveForwards();
-//	movement(RED);
-//	stopMotors();
 }
 
