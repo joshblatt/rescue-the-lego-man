@@ -163,12 +163,46 @@ void pickup() {
 
 }
 
-void turnAround() {
+
+// called when green is first seen
+// inch up a bit, turn left, drop off
+// move back a bit (maybe dont need to)
+// turn right, and finish
+void dropoff() {
+	stopMotors();
+	HAL_Delay(50);
+
+	slowRightMotors();
+	slowLeftMotors();
+	HAL_Delay(50);
+
+	moveForwards();
+	// timing will be adjusted to let robot get to midpoint of green zone
+	HAL_Delay(100);
+	stopMotors();
+	HAL_Delay(50);
+
+	// using assumption that dropoff will happen at FIRST dropoff one which is detected by the LEFT SENSOR which sees GREEN
+	turnLeft();
+
+	HAL_Delay(100);
+	stopMotors();
+	HAL_Delay(50);
+
+	openServo();
+	HAL_Delay(300);
+	// at this point - legoman has been dropped off
+}
+
+void turnAround(int backwardsTime) {
+	// backwardsTime is time that robot will move backwards (in ms)
+	// different cases will need different times
+		// moving back from blue is longer than moving back from green
 	regularRightMotors();
 	regularLeftMotors();
 	HAL_Delay(50);
 	moveBackwards();
-	HAL_Delay(1000);
+	HAL_Delay(backwardsTime);
 
 	stopMotors();
 	HAL_Delay(50);
@@ -254,21 +288,29 @@ void turnAround() {
 //}
 
 void searchAndRescue()	{
+	// PHASE 1
 	// Move to pickup zone
 	movement(BLUE);
-
 	// Pickup Lego Man
 	pickup();
 	// Turn around
-	turnAround();
+	turnAround(1000);
 
-	// Move to dropoff zone && start
+	// PHASE 2
+	// Move to green zone
+	movement(GREEN);
+	// Drop off robot
+	dropoff();
+	// Turn around
+	turnAround(250);
+
+	// PHASE 3
+	// Move to home
 	movement(RED);
-
-	// Drop off the robot by opening servo
+	// Stop at start
 	stopMotors();
 	HAL_Delay(50);
-	openServo();
-	HAL_Delay(300);
+//	openServo();
+//	HAL_Delay(300);
 }
 
