@@ -27,6 +27,14 @@
 // Robot moves until it finds red perpendicular line (double red)
 // Stop motors at red
 
+// TODO: 11/24
+// clean up code - make functions to handle repeatitive actions
+	// turn speedleft/right and regleft/right into one function
+	// remove unused functions
+// test blue code - should adjust fine but will need to test
+// testing for green code
+
+
 void init(TIM_HandleTypeDef *htim1, TIM_HandleTypeDef *htim3, TIM_HandleTypeDef *htim2, TIM_HandleTypeDef *htim4) {
 	  initMotors(htim1, htim3);
 	  initServo(htim2);
@@ -40,23 +48,23 @@ void movement(Colour stopColour) {
 	// need to test if condition will break at any unintended time
 	// need to test if params (left/right color, left/right slowed) carry over (pass as copy or pass with address thing)
 
+	// condition - break condition for while loop; dependent on colour, evaluated at end of each iteration
 	bool condition = true;
+	// turn - boolean to track whether robot is in a turn or not, adjusts speed of motors accordingly - prevents constant calls to moveForwards which would be expensive
 	bool turn = false;
+
+	moveForwards();
+	HAL_delay(50);
+
 	while (condition) {
 		// possible optimizing - can check motor speed directly -- can get rid of leftslowed/rightslowed and just check the values direct to see if slowed
 		// code currently slows motor down if it begins to turn (in that direction), and speeds it back up when it is out of the turn
-
-		// TODO:
-		// turn speedleft/right and regleft/right into one function
-		//
-
-
 
 		leftColour = getLeftColour();
 		rightColour = getRightColour();
 
 		// turning conditions
-		if (leftColour == RED || rightColour == RED)	{
+		if ((leftColour == RED  && rightColour != RED ) || (rightColour == RED && leftColour != RED))	{
 			// only stop motors if it hasnt started turn yet
 			// room for error with this - not sure how fast it can switch from turning left to turning right or from turn to straight
 			// valid option to stop after each micro-turn - initial implementation is to stop, turn a bit, stop, turn a bit until turn is complete
@@ -89,7 +97,9 @@ void movement(Colour stopColour) {
 			}
 		}
 
-		if (stopColour == GREEN) condition = leftColour != stopColour || rightColour != stopColour;
+		// was previously ||
+		if (stopColour == GREEN) condition = leftColour != stopColour && rightColour != stopColour;
+
 		// was previously &&
 		else condition = leftColour != stopColour || rightColour != stopColour;
 
@@ -136,15 +146,21 @@ void pickup() {
 	// once they both see red, move forwards very slowly, close servo
 	stopMotors();
 	HAL_Delay(50);
+
 	slowRightMotors();
 	slowLeftMotors();
 	HAL_Delay(50);
+
 	moveForwards();
 	HAL_Delay(500);
+
 	stopMotors();
 	HAL_Delay(50);
+
 	closeServo();
 	HAL_Delay(300);
+	// at this point - legoman has been picked up
+
 }
 
 void turnAround() {
@@ -156,82 +172,89 @@ void turnAround() {
 
 	stopMotors();
 	HAL_Delay(50);
+
+	// begin right rotation to turn 180
 	turnRight();
 
+	// turn until right sensor hits red
 	while (getRightColour() != RED) {
 		HAL_Delay(50);
 	}
+	// now turn until left sensor hits red
 	while (getLeftColour() != RED) {
 		HAL_Delay(50);
 	}
 	stopMotors();
 	HAL_Delay(50);
+	// at this point - robot has turned around and can begin line following
 }
 
-void goHome(Colour stopColour) {
-	// need to test if condition will break at any unintended time
-	// need to test if params (left/right color, left/right slowed) carry over (pass as copy or pass with address thing)
 
-	moveForwards();
-	HAL_Delay(50);
+// identical to movement - commented for now just to be safe but will remove when movement(RED) is tested and good to go
 
-	bool condition = true;
-	bool turn = false;
-	while (condition) {
-		// possible optimizing - can check motor speed directly -- can get rid of leftslowed/rightslowed and just check the values direct to see if slowed
-		// code currently slows motor down if it begins to turn (in that direction), and speeds it back up when it is out of the turn
-
-		// TODO:
-		// turn speed left/right and regleft/right into one function
-		//
-
-
-
-		leftColour = getLeftColour();
-		rightColour = getRightColour();
-
-		// turning conditions
-		if ((leftColour == RED  && rightColour != RED ) || (rightColour == RED && leftColour != RED))	{
-			// only stop motors if it hasnt started turn yet
-			// room for error with this - not sure how fast it can switch from turning left to turning right or from turn to straight
-			// valid option to stop after each micro-turn - initial implementation is to stop, turn a bit, stop, turn a bit until turn is complete
-			// optimistic goal is to not stop after each micro-turn - turn, turn again, turn again, etc. until turn complete
-
-			if (!turn) {
-				stopMotors();
-				speedLeftMotors();
-				speedRightMotors();
-				HAL_Delay(50);
-			}
-			if (leftColour == RED) {
-				turnLeft();
-				HAL_Delay(50);
-			}
-			else if (rightColour == RED) {
-				turnRight();
-				HAL_Delay(50);
-			}
-			turn = true;
-		}
-		// coming out of turn - reset motors to regular speed, change bool to false to signify that turn its not in turn
-		else {
-			if (turn) {
-				regularLeftMotors();
-				regularRightMotors();
-				moveForwards();
-				HAL_Delay(50);
-				turn = false;
-			}
-		}
-		// break when left = red && right = red
-		condition = leftColour != stopColour || rightColour != stopColour;
-
-	}
-}
+//void goHome(Colour stopColour) {
+//	// need to test if condition will break at any unintended time
+//	// need to test if params (left/right color, left/right slowed) carry over (pass as copy or pass with address thing)
+//
+//	moveForwards();
+//	HAL_Delay(50);
+//
+//	bool condition = true;
+//	bool turn = false;
+//	while (condition) {
+//		// possible optimizing - can check motor speed directly -- can get rid of leftslowed/rightslowed and just check the values direct to see if slowed
+//		// code currently slows motor down if it begins to turn (in that direction), and speeds it back up when it is out of the turn
+//
+//		// TODO:
+//		// turn speed left/right and regleft/right into one function
+//		//
+//
+//
+//
+//		leftColour = getLeftColour();
+//		rightColour = getRightColour();
+//
+//		// turning conditions
+//		if ((leftColour == RED  && rightColour != RED ) || (rightColour == RED && leftColour != RED))	{
+//			// only stop motors if it hasnt started turn yet
+//			// room for error with this - not sure how fast it can switch from turning left to turning right or from turn to straight
+//			// valid option to stop after each micro-turn - initial implementation is to stop, turn a bit, stop, turn a bit until turn is complete
+//			// optimistic goal is to not stop after each micro-turn - turn, turn again, turn again, etc. until turn complete
+//
+//			if (!turn) {
+//				stopMotors();
+//				speedLeftMotors();
+//				speedRightMotors();
+//				HAL_Delay(50);
+//			}
+//			if (leftColour == RED) {
+//				turnLeft();
+//				HAL_Delay(50);
+//			}
+//			else if (rightColour == RED) {
+//				turnRight();
+//				HAL_Delay(50);
+//			}
+//			turn = true;
+//		}
+//		// coming out of turn - reset motors to regular speed, change bool to false to signify that turn its not in turn
+//		else {
+//			if (turn) {
+//				regularLeftMotors();
+//				regularRightMotors();
+//				moveForwards();
+//				HAL_Delay(50);
+//				turn = false;
+//			}
+//		}
+//		// break when left = red && right = red
+//		condition = leftColour != stopColour || rightColour != stopColour;
+//
+//	}
+//}
 
 void searchAndRescue()	{
 	// Move to pickup zone
-	moveForwards();
 	movement(BLUE);
 
 	// Pickup Lego Man
@@ -239,7 +262,10 @@ void searchAndRescue()	{
 	// Turn around
 	turnAround();
 
-	goHome(RED);
+	// Move to dropoff zone && start
+	movement(RED);
+
+	// Drop off the robot by opening servo
 	stopMotors();
 	HAL_Delay(50);
 	openServo();
