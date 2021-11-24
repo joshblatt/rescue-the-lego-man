@@ -204,19 +204,19 @@ void stopRightMotors() {
 
 void slowLeftMotors() {
 	// Motor 1
-	tim1->Instance->CCR2 = 400;
+	tim1->Instance->CCR2 = 500;
 
 	// Motor 2
-	tim3->Instance->CCR2 = 400;
+	tim3->Instance->CCR2 = 500;
 	//HAL_Delay(1000);
 }
 
 void slowRightMotors() {
 	// Motor 3
-	tim3->Instance->CCR4 = 400;
+	tim3->Instance->CCR4 = 500;
 
 	// Motor 4
-	tim3->Instance->CCR1 = 400;
+	tim3->Instance->CCR1 = 500;
 	//HAL_Delay(1000);
 }
 
