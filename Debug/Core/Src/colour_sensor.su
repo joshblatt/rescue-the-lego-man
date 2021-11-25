@@ -8,6 +8,6 @@ colour_sensor.c:168:6:getLeftColourIntensities	16	static
 colour_sensor.c:179:6:getRightRGB	48	static
 colour_sensor.c:203:6:getLeftRGB	48	static
 colour_sensor.c:227:8:getRightColour	16	static
-colour_sensor.c:245:8:getLeftColour	16	static
-colour_sensor.c:262:6:setRightColour	16	static
-colour_sensor.c:279:6:setLeftColour	16	static
+colour_sensor.c:246:8:getLeftColour	16	static
+colour_sensor.c:264:6:setRightColour	16	static
+colour_sensor.c:281:6:setLeftColour	16	static

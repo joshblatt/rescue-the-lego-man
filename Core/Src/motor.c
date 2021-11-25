@@ -240,18 +240,18 @@ void regularRightMotors() {
 
 void speedLeftMotors() {
 	// Motor 1
-	tim1->Instance->CCR2 = 1000;
+	tim1->Instance->CCR2 = 800;
 
 	// Motor 2
-	tim3->Instance->CCR2 = 1000;
+	tim3->Instance->CCR2 = 800;
 	//HAL_Delay(1000);
 }
 
 void speedRightMotors() {
 	// Motor 3
-	tim3->Instance->CCR4 = 1000;
+	tim3->Instance->CCR4 = 800;
 
 	// Motor 4
-	tim3->Instance->CCR1 = 1000;
+	tim3->Instance->CCR1 = 800;
 	//HAL_Delay(1000);
 }

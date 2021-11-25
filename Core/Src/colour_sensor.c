@@ -227,7 +227,8 @@ void getLeftRGB(RGB *rgb) {
 Colour getRightColour() {
 	RGB rgb;
 	getRightRGB(&rgb);
-	if (rgb.red >= 200 && rgb.green >= 200 && rgb.blue >= 200) {
+	// rgb.red >= 200 && rgb.green >= 200 && rgb.blue >= 200
+	if ((rgb.red >= 200 && rgb.green >= 200 && rgb.blue >= 100) || (rgb.red >= 200 && rgb.blue >= 200 && rgb.green >= 100) || (rgb.green >= 200 && rgb.blue >= 200 && rgb.red >= 100)) {
 		return NO_COLOUR;
 	} else if (rgb.red <= 20 && rgb.green <= 20 && rgb.blue <= 20) {
 		return BLACK;
@@ -245,7 +246,8 @@ Colour getRightColour() {
 Colour getLeftColour() {
 	RGB rgb;
 	getLeftRGB(&rgb);
-	if (rgb.red >= 200 && rgb.green >= 200 && rgb.blue >= 200) {
+	// (rgb.red >= 200 && rgb.green >= 200) || (rgb.red >= 200 && rgb.blue >= 200) || (rgb.green >= 200 && rgb.blue >= 200)
+	if ((rgb.red >= 200 && rgb.green >= 200 && rgb.blue >= 100) || (rgb.red >= 200 && rgb.blue >= 200 && rgb.green >= 100) || (rgb.green >= 200 && rgb.blue >= 200 && rgb.red >= 100)) {
 		return NO_COLOUR;
 	} else if (rgb.red <= 20 && rgb.green <= 20 && rgb.blue <= 20) {
 		return BLACK;

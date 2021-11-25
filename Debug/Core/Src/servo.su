@@ -2,3 +2,5 @@ servo.c:6:6:initServo	16	static
 servo.c:13:6:moveServo	8	static
 servo.c:21:6:openServo	8	static
 servo.c:26:6:closeServo	8	static
+servo.c:31:6:startServo	8	static
+servo.c:35:6:stopServo	8	static

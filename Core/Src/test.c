@@ -25,7 +25,7 @@ void testColourSensor() {
 	redRight = rgbRight.red;
 	greenRight = rgbRight.green;
 	blueRight = rgbRight.blue;
-
+//
 	getLeftRGB(&rgbLeft);
 	redLeft = rgbLeft.red;
 	greenLeft = rgbLeft.green;

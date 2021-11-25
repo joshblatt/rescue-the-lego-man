@@ -42,6 +42,10 @@ void movement(Colour stopColour) {
 
 	bool condition = true;
 	bool turn = false;
+
+	rightColour = getRightColour();
+	leftColour = getLeftColour();
+	HAL_Delay(10);
 	while (condition) {
 		// possible optimizing - can check motor speed directly -- can get rid of leftslowed/rightslowed and just check the values direct to see if slowed
 		// code currently slows motor down if it begins to turn (in that direction), and speeds it back up when it is out of the turn
@@ -144,6 +148,8 @@ void pickup() {
 	HAL_Delay(50);
 	closeServo();
 	HAL_Delay(300);
+	stopServo();
+	HAL_Delay(50);
 }
 
 void turnAround() {
@@ -151,15 +157,23 @@ void turnAround() {
 	regularLeftMotors();
 	HAL_Delay(50);
 	moveBackwards();
-	HAL_Delay(1000);
+	HAL_Delay(600);
 
 	stopMotors();
 	HAL_Delay(50);
+	speedRightMotors();
+	speedLeftMotors();
+	HAL_Delay(50);
 	turnRight();
-	HAL_Delay(500);
+	HAL_Delay(50);
 
-	rightColour = NO_COLOUR;
-	leftColour = NO_COLOUR;
+	rightColour = getRightColour();
+	leftColour = getLeftColour();
+	HAL_Delay(50);
+//	rightColour = getRightColour();
+//	leftColour = getLeftColour();
+//	HAL_Delay(50);
+
 	while (rightColour != RED) {
 		HAL_Delay(50);
 		rightColour = getRightColour();
@@ -172,6 +186,9 @@ void turnAround() {
 	}
 	stopMotors();
 	HAL_Delay(50);
+	regularRightMotors();
+	regularLeftMotors();
+	HAL_Delay(50);
 }
 
 void goHome(Colour stopColour) {
@@ -180,8 +197,9 @@ void goHome(Colour stopColour) {
 
 	bool condition = true;
 	bool turn = false;
-	rightColour = NO_COLOUR;
-	leftColour = NO_COLOUR;
+	rightColour = getRightColour();
+	leftColour = getLeftColour();
+	HAL_Delay(50);
 	while (condition) {
 		// possible optimizing - can check motor speed directly -- can get rid of leftslowed/rightslowed and just check the values direct to see if slowed
 		// code currently slows motor down if it begins to turn (in that direction), and speeds it back up when it is out of the turn
@@ -254,8 +272,11 @@ void searchAndRescue()	{
 
 	pickup();
 	turnAround();
+	moveForwards();
+	HAL_Delay(50);
 	goHome(RED);
 	stopMotors();
+	startServo();
 	HAL_Delay(50);
 	openServo();
 	HAL_Delay(300);

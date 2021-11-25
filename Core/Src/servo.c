@@ -27,3 +27,11 @@ void closeServo() {
 	tim2->Instance->CCR1 = 150;
 	HAL_Delay(1000);
 }
+
+void startServo() {
+	HAL_TIM_PWM_Start(tim2, TIM_CHANNEL_1);
+}
+
+void stopServo() {
+	HAL_TIM_PWM_Stop(tim2, TIM_CHANNEL_1);
+}
