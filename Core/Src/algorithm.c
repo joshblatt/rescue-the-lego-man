@@ -70,15 +70,15 @@ void movement(Colour stopColour) {
 				stopMotors();
 				speedLeftMotors();
 				speedRightMotors();
-				HAL_Delay(50);
+				HAL_Delay(40);
 			}
 			if (leftColour == RED) {
 				turnLeft();
-				HAL_Delay(50);
+				HAL_Delay(40);
 			}
 			else if (rightColour == RED) {
 				turnRight();
-				HAL_Delay(50);
+				HAL_Delay(40);
 			}
 			turn = true;
 		}
@@ -88,7 +88,7 @@ void movement(Colour stopColour) {
 				regularLeftMotors();
 				regularRightMotors();
 				moveForwards();
-				HAL_Delay(50);
+				HAL_Delay(40);
 				turn = false;
 			}
 		}
@@ -121,19 +121,19 @@ void pickup() {
 			stopMotors();
 			HAL_Delay(50);
 			turnLeft();
-			HAL_Delay(50);
+			HAL_Delay(40);
 		} else if (leftColour != RED && rightColour == RED) {
 			stopMotors();
 			HAL_Delay(50);
 			turnRight();
-			HAL_Delay(50);
+			HAL_Delay(40);
 		} else if (leftColour == RED && rightColour == RED) {
 			bothRed = true;
 		} else {
 			stopMotors();
 			HAL_Delay(50);
 			moveForwards();
-			HAL_Delay(50);
+			HAL_Delay(40);
 		}
 	}
 	// once they both see red, move forwards very slowly, close servo
@@ -175,20 +175,20 @@ void turnAround() {
 //	HAL_Delay(50);
 
 	while (rightColour != RED) {
-		HAL_Delay(50);
+		HAL_Delay(40);
 		rightColour = getRightColour();
 
 	}
 	leftColour = getLeftColour();
 	while (leftColour != RED) {
-		HAL_Delay(50);
+		HAL_Delay(40);
 		leftColour = getLeftColour();
 	}
 	stopMotors();
 	HAL_Delay(50);
 	regularRightMotors();
 	regularLeftMotors();
-	HAL_Delay(50);
+	HAL_Delay(40);
 }
 
 void goHome(Colour stopColour) {

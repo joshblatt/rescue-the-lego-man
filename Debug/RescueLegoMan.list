@@ -1143,8 +1143,8 @@ void movement(Colour stopColour) {
  8000da2:	f001 fc39 	bl	8002618 <speedLeftMotors>
 				speedRightMotors();
  8000da6:	f001 fc4f 	bl	8002648 <speedRightMotors>
-				HAL_Delay(50);
- 8000daa:	2032      	movs	r0, #50	; 0x32
+				HAL_Delay(40);
+ 8000daa:	2028      	movs	r0, #40	; 0x28
  8000dac:	f002 f862 	bl	8002e74 <HAL_Delay>
 			}
 			if (leftColour == RED) {
@@ -1155,8 +1155,8 @@ void movement(Colour stopColour) {
  8000db8:	d105      	bne.n	8000dc6 <movement+0x92>
 				turnLeft();
  8000dba:	f001 fb65 	bl	8002488 <turnLeft>
-				HAL_Delay(50);
- 8000dbe:	2032      	movs	r0, #50	; 0x32
+				HAL_Delay(40);
+ 8000dbe:	2028      	movs	r0, #40	; 0x28
  8000dc0:	f002 f858 	bl	8002e74 <HAL_Delay>
  8000dc4:	e009      	b.n	8000dda <movement+0xa6>
 			}
@@ -1168,8 +1168,8 @@ void movement(Colour stopColour) {
  8000dce:	d104      	bne.n	8000dda <movement+0xa6>
 				turnRight();
  8000dd0:	f001 fb24 	bl	800241c <turnRight>
-				HAL_Delay(50);
- 8000dd4:	2032      	movs	r0, #50	; 0x32
+				HAL_Delay(40);
+ 8000dd4:	2028      	movs	r0, #40	; 0x28
  8000dd6:	f002 f84d 	bl	8002e74 <HAL_Delay>
 			}
 			turn = true;
@@ -1189,8 +1189,8 @@ void movement(Colour stopColour) {
  8000dea:	f001 fbff 	bl	80025ec <regularRightMotors>
 				moveForwards();
  8000dee:	f001 faa9 	bl	8002344 <moveForwards>
-				HAL_Delay(50);
- 8000df2:	2032      	movs	r0, #50	; 0x32
+				HAL_Delay(40);
+ 8000df2:	2028      	movs	r0, #40	; 0x28
  8000df4:	f002 f83e 	bl	8002e74 <HAL_Delay>
 				turn = false;
  8000df8:	2300      	movs	r3, #0
@@ -1322,8 +1322,8 @@ void pickup() {
  8000ed0:	f001 ffd0 	bl	8002e74 <HAL_Delay>
 			turnLeft();
  8000ed4:	f001 fad8 	bl	8002488 <turnLeft>
-			HAL_Delay(50);
- 8000ed8:	2032      	movs	r0, #50	; 0x32
+			HAL_Delay(40);
+ 8000ed8:	2028      	movs	r0, #40	; 0x28
  8000eda:	f001 ffcb 	bl	8002e74 <HAL_Delay>
  8000ede:	e02b      	b.n	8000f38 <pickup+0xcc>
 		} else if (leftColour != RED && rightColour == RED) {
@@ -1344,8 +1344,8 @@ void pickup() {
  8000efa:	f001 ffbb 	bl	8002e74 <HAL_Delay>
 			turnRight();
  8000efe:	f001 fa8d 	bl	800241c <turnRight>
-			HAL_Delay(50);
- 8000f02:	2032      	movs	r0, #50	; 0x32
+			HAL_Delay(40);
+ 8000f02:	2028      	movs	r0, #40	; 0x28
  8000f04:	f001 ffb6 	bl	8002e74 <HAL_Delay>
  8000f08:	e016      	b.n	8000f38 <pickup+0xcc>
 		} else if (leftColour == RED && rightColour == RED) {
@@ -1371,8 +1371,8 @@ void pickup() {
  8000f2a:	f001 ffa3 	bl	8002e74 <HAL_Delay>
 			moveForwards();
  8000f2e:	f001 fa09 	bl	8002344 <moveForwards>
-			HAL_Delay(50);
- 8000f32:	2032      	movs	r0, #50	; 0x32
+			HAL_Delay(40);
+ 8000f32:	2028      	movs	r0, #40	; 0x28
  8000f34:	f001 ff9e 	bl	8002e74 <HAL_Delay>
 	while (!bothRed) {
  8000f38:	79fb      	ldrb	r3, [r7, #7]
@@ -1480,8 +1480,8 @@ void turnAround() {
 
 	while (rightColour != RED) {
  8000ff6:	e008      	b.n	800100a <turnAround+0x72>
-		HAL_Delay(50);
- 8000ff8:	2032      	movs	r0, #50	; 0x32
+		HAL_Delay(40);
+ 8000ff8:	2028      	movs	r0, #40	; 0x28
  8000ffa:	f001 ff3b 	bl	8002e74 <HAL_Delay>
 		rightColour = getRightColour();
  8000ffe:	f000 fc8d 	bl	800191c <getRightColour>
@@ -1505,8 +1505,8 @@ void turnAround() {
  800101e:	701a      	strb	r2, [r3, #0]
 	while (leftColour != RED) {
  8001020:	e008      	b.n	8001034 <turnAround+0x9c>
-		HAL_Delay(50);
- 8001022:	2032      	movs	r0, #50	; 0x32
+		HAL_Delay(40);
+ 8001022:	2028      	movs	r0, #40	; 0x28
  8001024:	f001 ff26 	bl	8002e74 <HAL_Delay>
 		leftColour = getLeftColour();
  8001028:	f000 fcca 	bl	80019c0 <getLeftColour>
@@ -1530,8 +1530,8 @@ void turnAround() {
  8001048:	f001 fad0 	bl	80025ec <regularRightMotors>
 	regularLeftMotors();
  800104c:	f001 fab6 	bl	80025bc <regularLeftMotors>
-	HAL_Delay(50);
- 8001050:	2032      	movs	r0, #50	; 0x32
+	HAL_Delay(40);
+ 8001050:	2028      	movs	r0, #40	; 0x28
  8001052:	f001 ff0f 	bl	8002e74 <HAL_Delay>
 }
  8001056:	bf00      	nop
