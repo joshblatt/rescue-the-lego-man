@@ -156,9 +156,20 @@ void turnAround() {
 	stopMotors();
 	HAL_Delay(50);
 	turnRight();
+	HAL_Delay(500);
 
-	while (getRightColour() != RED) {}
-	while (getLeftColour() != RED) {}
+	rightColour = NO_COLOUR;
+	leftColour = NO_COLOUR;
+	while (rightColour != RED) {
+		HAL_Delay(50);
+		rightColour = getRightColour();
+
+	}
+	leftColour = getLeftColour();
+	while (leftColour != RED) {
+		HAL_Delay(50);
+		leftColour = getLeftColour();
+	}
 	stopMotors();
 	HAL_Delay(50);
 }
@@ -169,6 +180,8 @@ void goHome(Colour stopColour) {
 
 	bool condition = true;
 	bool turn = false;
+	rightColour = NO_COLOUR;
+	leftColour = NO_COLOUR;
 	while (condition) {
 		// possible optimizing - can check motor speed directly -- can get rid of leftslowed/rightslowed and just check the values direct to see if slowed
 		// code currently slows motor down if it begins to turn (in that direction), and speeds it back up when it is out of the turn
@@ -217,7 +230,7 @@ void goHome(Colour stopColour) {
 		}
 
 		if (stopColour == GREEN) condition = leftColour != stopColour || rightColour != stopColour;
-		else condition = leftColour != stopColour && rightColour != stopColour;
+		else condition = leftColour != stopColour || rightColour != stopColour;
 
 	}
 }
