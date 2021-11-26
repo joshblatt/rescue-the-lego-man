@@ -93,14 +93,16 @@ void movement(Colour stopColour) {
 			}
 		}
 
-		if (stopColour == GREEN) condition = leftColour != stopColour || rightColour != stopColour;
-		else condition = leftColour != stopColour && rightColour != stopColour;
+		if (stopColour == GREEN) condition = rightColour != stopColour;
+		else condition = leftColour != stopColour || rightColour != stopColour;
 
 	}
 }
 
 void pickup() {
 	stopMotors();
+	startServo();
+	HAL_Delay(50);
 	openServo();
 	HAL_Delay(50);
 
@@ -139,8 +141,8 @@ void pickup() {
 	// once they both see red, move forwards very slowly, close servo
 	stopMotors();
 	HAL_Delay(50);
-	slowRightMotors();
-	slowLeftMotors();
+	slowRightMotors();//slow
+	slowLeftMotors();//slow
 	HAL_Delay(50);
 	moveForwards();
 	HAL_Delay(500);
@@ -191,12 +193,80 @@ void turnAround() {
 	HAL_Delay(40);
 }
 
+// called when green is first seen
+// inch up a bit, turn left, drop off
+// move back a bit (maybe dont need to)
+// turn right, and finish
+void dropoff() {
+	stopMotors();
+	HAL_Delay(50);
+
+//	slowRightMotors();
+//	slowLeftMotors();
+//	HAL_Delay(50);
+//
+//	moveForwards();
+//	// timing will be adjusted to let robot get to midpoint of green zone
+//	HAL_Delay(50);
+//	stopMotors();
+//	HAL_Delay(50);
+
+	speedRightMotors();
+	speedLeftMotors();
+	HAL_Delay(50);
+
+	// using assumption that dropoff will happen at FIRST dropoff one which is detected by the LEFT SENSOR which sees GREEN
+	turnRight();
+
+	HAL_Delay(450);
+	stopMotors();
+	HAL_Delay(50);
+
+	regularRightMotors();
+	regularLeftMotors();
+	HAL_Delay(50);
+	moveForwards();
+	HAL_Delay(400);
+	stopMotors();
+	HAL_Delay(50);
+
+	startServo();
+	HAL_Delay(50);
+	openServo();
+	HAL_Delay(300);
+	stopServo();
+	HAL_Delay(50);
+	// at this point - legoman has been dropped off
+
+	moveBackwards();
+	HAL_Delay(600);
+
+	stopMotors();
+	HAL_Delay(50);
+
+	speedRightMotors();
+	speedLeftMotors();
+	HAL_Delay(50);
+
+	turnLeft();
+	HAL_Delay(20);
+	rightColour = getRightColour();
+	HAL_Delay(10);
+	while (rightColour != RED) {
+		HAL_Delay(20);
+		rightColour = getRightColour();
+	}
+
+	stopMotors();
+	HAL_Delay(50);
+}
+
 void goHome(Colour stopColour) {
 	// need to test if condition will break at any unintended time
 	// need to test if params (left/right color, left/right slowed) carry over (pass as copy or pass with address thing)
 
 	bool condition = true;
-	bool turn = false;
+	bool turn = true;
 	rightColour = getRightColour();
 	leftColour = getLeftColour();
 	HAL_Delay(50);
@@ -272,13 +342,16 @@ void searchAndRescue()	{
 
 	pickup();
 	turnAround();
-	moveForwards();
-	HAL_Delay(50);
+
+	movement(GREEN);
+	dropoff();
+
+//	moveForwards();
+//	HAL_Delay(50);
 	goHome(RED);
 	stopMotors();
 	startServo();
-	HAL_Delay(50);
-	openServo();
+	closeServo();
 	HAL_Delay(300);
 
 	// move until both see red

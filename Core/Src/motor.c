@@ -203,7 +203,7 @@ void stopRightMotors() {
 }
 
 void slowLeftMotors() {
-	// Motor 1
+	// Motor 1 // 500
 	tim1->Instance->CCR2 = 500;
 
 	// Motor 2
