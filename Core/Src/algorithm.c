@@ -343,15 +343,15 @@ void searchAndRescue()	{
 	pickup();
 	turnAround();
 
-	movement(GREEN);
-	dropoff();
+//	movement(GREEN);
+//	dropoff();
 
-//	moveForwards();
-//	HAL_Delay(50);
+	moveForwards();
+	HAL_Delay(50);
 	goHome(RED);
 	stopMotors();
 	startServo();
-	closeServo();
+	openServo();
 	HAL_Delay(300);
 
 	// move until both see red
